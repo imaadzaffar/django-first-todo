@@ -1,0 +1,32 @@
+{% extends "main/base.html" %}
+{% block title %}View Todo List{% endblock %}
+
+{% block content %}
+  <h3>{{todo.name}}</h3>
+  <form action="#" method="post">
+    {% csrf_token %}
+      {% for item in todo.item_set.all %}
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <div class="input-group-text">
+            {% if item.complete %}
+              <input type="checkbox" value="checked" name=c{{item.id}} checked>
+            {% else %}
+              <input type="checkbox" value="checked" name=c{{item.id}}>
+            {% endif %}
+          </div>
+        </div>
+        <input type="text" class="form-control" value="{{item.text}}">
+      </div>
+      {% endfor %}
+
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Enter item name" name="new">
+      <div class="input-group-append">
+        <button type="submit" name="add-item" value="clicked" class="btn btn-outline-secondary">Add Item</button>
+      </div>
+    </div>
+
+    <button type="submit" name="save" value="clicked" class="btn btn-success">Save</button>
+  </form>
+{% endblock %}
